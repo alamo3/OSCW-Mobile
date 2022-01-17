@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'pages/settings.dart';
 
 void main() {
   runApp(const MaterialApp(
@@ -15,6 +16,33 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  int selected_page = 0;
+
+  Widget create_page()
+  {
+    switch(selected_page)
+    {
+      case 0:
+       return Center(child: Text('Notifications'),);
+
+      case 1:
+        return Center(child: Text('Camera Events'),);
+
+      case 2:
+        return SettingsPage();
+    }
+
+    return Container();
+  }
+
+  void onPageSelected(int index)
+  {
+    setState(() {
+      selected_page = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,12 +52,13 @@ class _HomeState extends State<Home> {
       ),
 
       body: Container(
-        color: Colors.black45,
+        color: Colors.black87,
+        child: create_page(),
       ),
 
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black87,
-        elevation: 0,
+        elevation: 1,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.notifications),
@@ -46,6 +75,8 @@ class _HomeState extends State<Home> {
         ],
         selectedItemColor: Colors.cyan[400],
         unselectedItemColor: Colors.white54,
+        currentIndex: selected_page,
+        onTap: onPageSelected,
       ),
     );
   }
