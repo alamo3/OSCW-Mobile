@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 class SettingsManager
 {
 
-  late String serverIP;
-  late int serverPort;
+  String serverIP = '';
+  int serverPort = 0;
 
   late final SharedPreferences prefs;
 

@@ -24,7 +24,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  final NotificationsPage _notificationsPage = NotificationsPage();
+  final NotificationsPage _notificationsPage = NotificationsPage(_notificationManager);
 
   int selected_page = 0;
 
@@ -33,8 +33,11 @@ class _HomeState extends State<Home> {
   @override
   void initState()
   {
-    _settingsManager.getPreferences((){setState(() {
-        bLoading = false;
+    _settingsManager.getPreferences((){
+      _notificationManager.fetchNotificationsFromServer((){
+        setState(() {
+          bLoading = false;
+        });
       });
     });
   }
@@ -69,6 +72,9 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+
+    Icon notificationIcon = _notificationManager.getNumNotifs() != 0 ? Icon(Icons.notification_important) : Icon(Icons.notifications);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('OSCW Mobile Companion'),
@@ -83,9 +89,9 @@ class _HomeState extends State<Home> {
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black87,
         elevation: 1,
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
+            icon: notificationIcon,
             label: 'Notifications',
           ),
           BottomNavigationBarItem(

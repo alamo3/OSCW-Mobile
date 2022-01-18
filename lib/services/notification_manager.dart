@@ -13,8 +13,18 @@ class NotificationManager{
 
   int getNumNotifs() { return notifications.length; }
 
+  List getNotificationsList()
+  {
+    return notifications;
+  }
+
   void fetchNotificationsFromServer(Function callback) async
   {
+    assert(settingsManager.bLoaded);
+
+    String serverIP = settingsManager.serverIP;
+    int serverPort = settingsManager.serverPort;
+
     //TODO: actually fetch
     await Future.delayed(Duration(seconds: 3));
 
@@ -25,6 +35,11 @@ class NotificationManager{
     notifications.add(ClientNotification(notificationType: NotificationType.urgent, notificationText: 'Urgent Notification 3'));
 
     callback();
+  }
+
+  void removeNotification(int index)
+  {
+    notifications.removeAt(index);
   }
 
 }
