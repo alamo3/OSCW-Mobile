@@ -16,27 +16,39 @@ class _SettingsPageState extends State<SettingsPage> {
         child:
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text('Server IP:', style: TextStyle(color: Colors.white),),
-              SizedBox(height: 10.0,),
-              TextField(
+            children: [
+
+              const TextField(
                 obscureText: false,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Server IP',
-                  hintText: 'Public IP Address of the OSCW desktop server'
+                    labelText: 'Server IP',
+                    hintText: 'xx.xx.xx.xx',
+                    hintStyle: TextStyle(color: Colors.grey),
+                    labelStyle: TextStyle(color: Colors.white54)
+                ),
+              ),
+              
+              SizedBox(height: 15.0,),
+
+              const TextField(
+                style: TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                    labelText: 'Server Port',
+                    hintText: '0-65535',
+                    hintStyle: TextStyle(color: Colors.grey),
+                    labelStyle: TextStyle(color: Colors.white54)
                 ),
               ),
               SizedBox(height: 15.0,),
-              Text('Server Port:', style: TextStyle(color: Colors.white),),
-              SizedBox(height: 10.0,),
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Server Port',
-                  hintText: 'Port of the OSCW desktop server'
-                ),
-              )
+              ElevatedButton(
+                  onPressed: (){},
+                  child: const Text('Test Connection'),
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.black87)
+                  ),
+
+              ),
+              
           ]
           ),
       ),
