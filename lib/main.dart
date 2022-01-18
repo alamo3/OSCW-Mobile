@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:oscw_mobile_app/services/notification_manager.dart';
 import 'pages/settings.dart';
+import 'pages/notifications_main.dart';
+import 'services/settings_manager.dart';
+import 'pages/loading.dart';
+
+SettingsManager _settingsManager = SettingsManager();
+NotificationManager _notificationManager = NotificationManager(settingsManager: _settingsManager);
 
 void main() {
   runApp(const MaterialApp(
@@ -17,17 +24,34 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
+  final NotificationsPage _notificationsPage = NotificationsPage();
+
   int selected_page = 0;
+
+  bool bLoading = true;
+
+  @override
+  void initState()
+  {
+    _settingsManager.getPreferences((){setState(() {
+        bLoading = false;
+      });
+    });
+  }
 
   Widget create_page()
   {
+    if(bLoading){
+      return Loading();
+    }
+
     switch(selected_page)
     {
       case 0:
-       return Center(child: Text('Notifications'),);
+       return _notificationsPage;
 
       case 1:
-        return Center(child: Text('Camera Events'),);
+        return Center(child: Text('Live Camera'),);
 
       case 2:
         return SettingsPage();
@@ -66,7 +90,7 @@ class _HomeState extends State<Home> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.videocam_sharp),
-            label: 'Camera Events',
+            label: 'Cameras',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
