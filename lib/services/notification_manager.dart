@@ -5,11 +5,24 @@ import 'settings_manager.dart';
 
 class NotificationManager{
 
+  NotificationManager._privateConstructor()
+  {
+    settingsManager = SettingsManager();
+  }
+
   late SettingsManager settingsManager;
 
   List notifications = <ClientNotification>[];
 
-  NotificationManager({required this.settingsManager});
+  late Function homeCallback;
+
+  static final NotificationManager _notificationManager = NotificationManager._privateConstructor();
+
+  factory NotificationManager()
+  {
+    return _notificationManager;
+  }
+
 
   int getNumNotifs() { return notifications.length; }
 
@@ -34,12 +47,15 @@ class NotificationManager{
     notifications.add(ClientNotification(notificationType: NotificationType.normal, notificationText: 'Normal notif 2'));
     notifications.add(ClientNotification(notificationType: NotificationType.urgent, notificationText: 'Urgent Notification 3'));
 
+    homeCallback = callback;
+
     callback();
   }
 
   void removeNotification(int index)
   {
     notifications.removeAt(index);
+    homeCallback();
   }
 
 }

@@ -5,14 +5,9 @@ import 'package:oscw_mobile_app/widgets/Notification.dart';
 
 class NotificationsPage extends StatefulWidget {
 
-  late NotificationManager notificationManager;
-
-  NotificationsPage(this.notificationManager);
-
-
 
   @override
-  _NotificationsPageState createState() => _NotificationsPageState(notificationManager);
+  _NotificationsPageState createState() => _NotificationsPageState();
 }
 
 class _NotificationsPageState extends State<NotificationsPage> {
@@ -20,7 +15,10 @@ class _NotificationsPageState extends State<NotificationsPage> {
   late NotificationManager notificationManager;
   List notifications = [];
 
-  _NotificationsPageState(this.notificationManager);
+  _NotificationsPageState()
+  {
+    notificationManager = NotificationManager();
+  }
 
   void updateNotifications()
   {

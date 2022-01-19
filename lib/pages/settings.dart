@@ -1,13 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:oscw_mobile_app/services/settings_manager.dart';
 
 class SettingsPage extends StatefulWidget {
-  const SettingsPage({Key? key}) : super(key: key);
+
 
   @override
   _SettingsPageState createState() => _SettingsPageState();
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+
+  late bool testedConnection;
+  late bool connectionTestSuccessful;
+
+  late SettingsManager settingsManager;
+
+  _SettingsPageState()
+  {
+    settingsManager = SettingsManager();
+  }
+
+  @override
+  void initState()
+  {
+    connectionTestSuccessful = false;
+    testedConnection = false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -18,9 +37,10 @@ class _SettingsPageState extends State<SettingsPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 
-              const TextField(
-                obscureText: false,
-                decoration: InputDecoration(
+              TextFormField(
+                initialValue: '192.168.0.1',
+                style: const TextStyle(color: Colors.white),
+                decoration: const InputDecoration(
                     labelText: 'Server IP',
                     hintText: 'xx.xx.xx.xx',
                     hintStyle: TextStyle(color: Colors.grey),
@@ -28,26 +48,46 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ),
               
-              SizedBox(height: 15.0,),
+              const SizedBox(height: 15.0,),
 
-              const TextField(
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
+              TextFormField(
+                style: const TextStyle(color: Colors.white),
+                decoration: const InputDecoration(
                     labelText: 'Server Port',
                     hintText: '0-65535',
                     hintStyle: TextStyle(color: Colors.grey),
                     labelStyle: TextStyle(color: Colors.white54)
                 ),
               ),
-              SizedBox(height: 15.0,),
-              ElevatedButton(
-                  onPressed: (){},
-                  child: const Text('Test Connection'),
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(Colors.black87)
+              const SizedBox(height: 15.0,),
+
+              Row(
+                children: [
+                  ElevatedButton(
+                    onPressed: (){
+                      setState(() {
+                        testedConnection = true;
+                        connectionTestSuccessful = true;
+                      });
+                    },
+                    child: const Text('Test Connection'),
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(Colors.black87)
+                    ),
+
                   ),
 
+                  SizedBox(width: 20.0,),
+                  Visibility(
+                      child: Text(
+                        connectionTestSuccessful ? ('Connection Successful') : ('Could not establish connection'),
+                        style: TextStyle(color: connectionTestSuccessful ? Colors.green: Colors.red),
+                      ),
+                    visible: testedConnection,
+                  )
+                ],
               ),
+
               
           ]
           ),

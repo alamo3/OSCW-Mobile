@@ -5,8 +5,8 @@ import 'pages/notifications_main.dart';
 import 'services/settings_manager.dart';
 import 'pages/loading.dart';
 
-SettingsManager _settingsManager = SettingsManager();
-NotificationManager _notificationManager = NotificationManager(settingsManager: _settingsManager);
+
+
 
 void main() {
   runApp(const MaterialApp(
@@ -24,7 +24,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  final NotificationsPage _notificationsPage = NotificationsPage(_notificationManager);
+  final SettingsManager _settingsManager = SettingsManager();
+  final NotificationManager _notificationManager = NotificationManager();
 
   int selected_page = 0;
 
@@ -51,7 +52,7 @@ class _HomeState extends State<Home> {
     switch(selected_page)
     {
       case 0:
-       return _notificationsPage;
+       return NotificationsPage();
 
       case 1:
         return Center(child: Text('Live Camera'),);
