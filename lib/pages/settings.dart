@@ -10,21 +10,21 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
 
-  late bool testedConnection;
-  late bool connectionTestSuccessful;
+  late bool _testedConnection;
+  late bool _connectionTestSuccessful;
 
-  late SettingsManager settingsManager;
+  late SettingsManager _settingsManager;
 
   _SettingsPageState()
   {
-    settingsManager = SettingsManager();
+    _settingsManager = SettingsManager();
   }
 
   @override
   void initState()
   {
-    connectionTestSuccessful = false;
-    testedConnection = false;
+    _connectionTestSuccessful = false;
+    _testedConnection = false;
   }
 
   @override
@@ -66,8 +66,8 @@ class _SettingsPageState extends State<SettingsPage> {
                   ElevatedButton(
                     onPressed: (){
                       setState(() {
-                        testedConnection = true;
-                        connectionTestSuccessful = true;
+                        _testedConnection = true;
+                        _connectionTestSuccessful = true;
                       });
                     },
                     child: const Text('Test Connection'),
@@ -80,10 +80,10 @@ class _SettingsPageState extends State<SettingsPage> {
                   SizedBox(width: 20.0,),
                   Visibility(
                       child: Text(
-                        connectionTestSuccessful ? ('Connection Successful') : ('Could not establish connection'),
-                        style: TextStyle(color: connectionTestSuccessful ? Colors.green: Colors.red),
+                        _connectionTestSuccessful ? ('Connection Successful') : ('Could not establish connection'),
+                        style: TextStyle(color: _connectionTestSuccessful ? Colors.green: Colors.red),
                       ),
-                    visible: testedConnection,
+                    visible: _testedConnection,
                   )
                 ],
               ),

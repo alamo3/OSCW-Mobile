@@ -3,12 +3,19 @@ import 'notification_types.dart';
 
 class ClientNotification{
 
-  late NotificationType notificationType;
+  late NotificationType _notificationType;
 
-  late String notificationText;
+  late String _notificationText;
 
-  ClientNotification({required this.notificationType,required this.notificationText});
+  ClientNotification({required NotificationType notificationType,required String notificationText})
+  {
+    this._notificationType = notificationType;
+    this._notificationText = notificationText;
+  }
 
+  String get notificationText => _notificationText;
+
+  NotificationType get notificationType => _notificationType;
 }
 
 

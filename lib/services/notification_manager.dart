@@ -7,14 +7,14 @@ class NotificationManager{
 
   NotificationManager._privateConstructor()
   {
-    settingsManager = SettingsManager();
+    _settingsManager = SettingsManager();
   }
 
-  late SettingsManager settingsManager;
+  late SettingsManager _settingsManager;
 
-  List notifications = <ClientNotification>[];
+  List _notifications = <ClientNotification>[];
 
-  late Function homeCallback;
+  late Function _homeCallback;
 
   static final NotificationManager _notificationManager = NotificationManager._privateConstructor();
 
@@ -24,38 +24,38 @@ class NotificationManager{
   }
 
 
-  int getNumNotifs() { return notifications.length; }
+  int getNumNotifs() { return _notifications.length; }
 
   List getNotificationsList()
   {
-    return notifications;
+    return _notifications;
   }
 
   void fetchNotificationsFromServer(Function callback) async
   {
-    assert(settingsManager.bLoaded);
+    assert(_settingsManager.bLoaded);
 
-    String serverIP = settingsManager.serverIP;
-    int serverPort = settingsManager.serverPort;
+    String serverIP = _settingsManager.serverIP;
+    int serverPort = _settingsManager.serverPort;
 
     //TODO: actually fetch
     await Future.delayed(Duration(seconds: 3));
 
-    this.notifications = [];
+    this._notifications = [];
 
-    notifications.add(ClientNotification(notificationType: NotificationType.low, notificationText: 'Notif 1'));
-    notifications.add(ClientNotification(notificationType: NotificationType.normal, notificationText: 'Normal notif 2'));
-    notifications.add(ClientNotification(notificationType: NotificationType.urgent, notificationText: 'Urgent Notification 3'));
+    _notifications.add(ClientNotification(notificationType: NotificationType.normal, notificationText: 'Notif 1'));
+    _notifications.add(ClientNotification(notificationType: NotificationType.normal, notificationText: 'Normal notif 2'));
+    _notifications.add(ClientNotification(notificationType: NotificationType.urgent, notificationText: 'Urgent Notification 3'));
 
-    homeCallback = callback;
+    _homeCallback = callback;
 
     callback();
   }
 
   void removeNotification(int index)
   {
-    notifications.removeAt(index);
-    homeCallback();
+    _notifications.removeAt(index);
+    _homeCallback();
   }
 
 }

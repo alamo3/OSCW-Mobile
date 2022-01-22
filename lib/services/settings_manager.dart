@@ -11,34 +11,36 @@ class SettingsManager
     return _instance;
   }
 
-  String serverIP = '';
-  int serverPort = 0;
+  String _serverIP = '';
+  int _serverPort = 0;
 
-  late final SharedPreferences prefs;
+  late final SharedPreferences _prefs;
 
   bool bLoaded = false;
 
   void setServerIP(String ip)
   {
-    serverIP = ip;
-    prefs.setString('server_ip', serverIP);
+    _serverIP = ip;
+    _prefs.setString('server_ip', serverIP);
   }
 
   void setServerPort(int port)
   {
-    serverPort = port;
-    prefs.setInt('server_port', port);
+    _serverPort = port;
+    _prefs.setInt('server_port', port);
   }
 
   void getPreferences(Function callback) async
   {
-    prefs = await SharedPreferences.getInstance();
+    _prefs = await SharedPreferences.getInstance();
     bLoaded = true;
     callback();
 
-    serverIP = prefs.getString('server_ip') ?? '';
-    serverPort = prefs.getInt('server_port') ?? 0;
+    _serverIP = _prefs.getString('server_ip') ?? '';
+    _serverPort = _prefs.getInt('server_port') ?? 0;
   }
 
+  int get serverPort => _serverPort;
 
+  String get serverIP => _serverIP;
 }

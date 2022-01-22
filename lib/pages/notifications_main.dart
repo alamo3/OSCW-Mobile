@@ -12,17 +12,17 @@ class NotificationsPage extends StatefulWidget {
 
 class _NotificationsPageState extends State<NotificationsPage> {
 
-  late NotificationManager notificationManager;
-  List notifications = [];
+  late NotificationManager _notificationManager;
+  List _notifications = [];
 
   _NotificationsPageState()
   {
-    notificationManager = NotificationManager();
+    _notificationManager = NotificationManager();
   }
 
   void updateNotifications()
   {
-    notifications = notificationManager.getNotificationsList();
+    _notifications = _notificationManager.getNotificationsList();
   }
 
   @override
@@ -31,11 +31,25 @@ class _NotificationsPageState extends State<NotificationsPage> {
 
     return Container(
       child: ListView.builder(
-        itemCount: notifications.length,
+        itemCount: _notifications.length,
         itemBuilder: (context, index){
+
+          late Icon notifIcon;
+
+          switch(_notifications[index].notificationType)
+          {
+            case NotificationType.normal:
+              notifIcon = Icon(Icons.notifications, color: Colors.grey,);
+              break;
+
+            case NotificationType.urgent:
+              notifIcon = Icon(Icons.notification_important, color: Colors.red[400]);
+              break;
+          }
+
           return GestureDetector(
             onTap: (){ setState(() {
-              notificationManager.removeNotification(index);
+              _notificationManager.removeNotification(index);
               updateNotifications();
             });
             },
@@ -43,7 +57,13 @@ class _NotificationsPageState extends State<NotificationsPage> {
               color: Colors.black,
               child: Padding(
                 padding: const EdgeInsets.all(14.0),
-                child: Text( notifications[index].notificationText, style: TextStyle(color: Colors.white),),
+                child: Row(
+                  children: [
+                    notifIcon,
+                    SizedBox(width: 20.0,),
+                    Text( _notifications[index].notificationText, style: TextStyle(color: Colors.white),),
+                  ],
+                ),
               ),
             ),
           );

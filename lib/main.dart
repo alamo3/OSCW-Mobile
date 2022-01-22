@@ -27,9 +27,9 @@ class _HomeState extends State<Home> {
   final SettingsManager _settingsManager = SettingsManager();
   final NotificationManager _notificationManager = NotificationManager();
 
-  int selected_page = 0;
+  int _selected_page = 0;
 
-  bool bLoading = true;
+  bool _bLoading = true;
 
   @override
   void initState()
@@ -37,7 +37,7 @@ class _HomeState extends State<Home> {
     _settingsManager.getPreferences((){
       _notificationManager.fetchNotificationsFromServer((){
         setState(() {
-          bLoading = false;
+          _bLoading = false;
         });
       });
     });
@@ -45,11 +45,11 @@ class _HomeState extends State<Home> {
 
   Widget create_page()
   {
-    if(bLoading){
+    if(_bLoading){
       return Loading();
     }
 
-    switch(selected_page)
+    switch(_selected_page)
     {
       case 0:
        return NotificationsPage();
@@ -67,7 +67,7 @@ class _HomeState extends State<Home> {
   void onPageSelected(int index)
   {
     setState(() {
-      selected_page = index;
+      _selected_page = index;
     });
   }
 
@@ -106,11 +106,12 @@ class _HomeState extends State<Home> {
         ],
         selectedItemColor: Colors.cyan[400],
         unselectedItemColor: Colors.white54,
-        currentIndex: selected_page,
+        currentIndex: _selected_page,
         onTap: onPageSelected,
       ),
     );
   }
+
 }
 
 
