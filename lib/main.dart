@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:oscw_mobile_app/pages/camera_main.dart';
 import 'package:oscw_mobile_app/services/notification_manager.dart';
 import 'pages/settings.dart';
 import 'pages/notifications_main.dart';
@@ -55,7 +56,7 @@ class _HomeState extends State<Home> {
        return NotificationsPage();
 
       case 1:
-        return Center(child: Text('Live Camera'),);
+        return CameraPage();
 
       case 2:
         return SettingsPage();
