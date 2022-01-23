@@ -27,7 +27,7 @@ class _HomeState extends State<Home> {
   final SettingsManager _settingsManager = SettingsManager();
   final NotificationManager _notificationManager = NotificationManager();
 
-  int _selected_page = 0;
+  int _selectedPage = 0;
 
   bool _bLoading = true;
 
@@ -49,7 +49,7 @@ class _HomeState extends State<Home> {
       return Loading();
     }
 
-    switch(_selected_page)
+    switch(_selectedPage)
     {
       case 0:
        return NotificationsPage();
@@ -67,7 +67,7 @@ class _HomeState extends State<Home> {
   void onPageSelected(int index)
   {
     setState(() {
-      _selected_page = index;
+      _selectedPage = index;
     });
   }
 
@@ -95,18 +95,18 @@ class _HomeState extends State<Home> {
             icon: notificationIcon,
             label: 'Notifications',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.videocam_sharp),
             label: 'Cameras',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.settings),
             label: 'Settings',
           ),
         ],
         selectedItemColor: Colors.cyan[400],
         unselectedItemColor: Colors.white54,
-        currentIndex: _selected_page,
+        currentIndex: _selectedPage,
         onTap: onPageSelected,
       ),
     );

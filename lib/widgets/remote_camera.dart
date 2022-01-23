@@ -4,15 +4,15 @@ class RemoteCamera
 {
 
   late AssetImage _image;
-  late int _camera_id;
+  late int _cameraID;
 
-  late String _camera_name;
+  late String _cameraName;
 
-  RemoteCamera({required int camera_id, required String camera_name})
+  RemoteCamera({required int cameraID, required String cameraName})
   {
     _image = AssetImage('assets/camera.png');
-    _camera_id = camera_id;
-    _camera_name = camera_name;
+    _cameraID = cameraID;
+    _cameraName = cameraName;
   }
 
   Future<void> updateCameraImage() async
@@ -20,9 +20,9 @@ class RemoteCamera
     //TODO: actually fetch latest camera image
   }
 
-  String get camera_name => _camera_name;
+  String get cameraName => _cameraName;
 
-  int get camera_id => _camera_id;
+  int get cameraID => _cameraID;
 
   AssetImage get image => _image;
 }
