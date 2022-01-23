@@ -38,7 +38,7 @@ class _SettingsPageState extends State<SettingsPage> {
             children: [
 
               TextFormField(
-                initialValue: '192.168.0.1',
+                initialValue: _settingsManager.serverIP,
                 style: const TextStyle(color: Colors.white),
                 decoration: const InputDecoration(
                     labelText: 'Server IP',
@@ -46,11 +46,16 @@ class _SettingsPageState extends State<SettingsPage> {
                     hintStyle: TextStyle(color: Colors.grey),
                     labelStyle: TextStyle(color: Colors.white54)
                 ),
+
+                onChanged: (text){
+                  _settingsManager.setServerIP(text);
+                },
               ),
               
               const SizedBox(height: 15.0,),
 
               TextFormField(
+                initialValue: _settingsManager.serverPort.toString(),
                 style: const TextStyle(color: Colors.white),
                 decoration: const InputDecoration(
                     labelText: 'Server Port',
@@ -58,6 +63,9 @@ class _SettingsPageState extends State<SettingsPage> {
                     hintStyle: TextStyle(color: Colors.grey),
                     labelStyle: TextStyle(color: Colors.white54)
                 ),
+                onChanged: (text){
+                  _settingsManager.setServerPort(int.parse(text));
+                },
               ),
               const SizedBox(height: 15.0,),
 
@@ -87,8 +95,6 @@ class _SettingsPageState extends State<SettingsPage> {
                   )
                 ],
               ),
-
-              
           ]
           ),
       ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:oscw_mobile_app/pages/camera_main.dart';
 import 'package:oscw_mobile_app/services/notification_manager.dart';
-import 'pages/settings.dart';
+import 'pages/settings_main.dart';
 import 'pages/notifications_main.dart';
 import 'services/settings_manager.dart';
 import 'pages/loading.dart';

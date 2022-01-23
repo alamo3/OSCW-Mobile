@@ -20,12 +20,14 @@ class SettingsManager
 
   void setServerIP(String ip)
   {
+    print('Setting server IP to: $ip');
     _serverIP = ip;
     _prefs.setString('server_ip', serverIP);
   }
 
   void setServerPort(int port)
   {
+    print('Setting server port to :$port');
     _serverPort = port;
     _prefs.setInt('server_port', port);
   }
