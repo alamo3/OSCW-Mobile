@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:oscw_mobile_app/services/networking_manager.dart';
 import 'package:oscw_mobile_app/services/settings_manager.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -14,9 +15,11 @@ class _SettingsPageState extends State<SettingsPage> {
   late bool _connectionTestSuccessful;
 
   late SettingsManager _settingsManager;
+  late NetworkingManager _networkingManager;
 
   _SettingsPageState()
   {
+    _networkingManager = NetworkingManager();
     _settingsManager = SettingsManager();
   }
 
@@ -72,11 +75,13 @@ class _SettingsPageState extends State<SettingsPage> {
               Row(
                 children: [
                   ElevatedButton(
-                    onPressed: (){
-                      setState(() {
-                        _testedConnection = true;
-                        _connectionTestSuccessful = true;
-                      });
+                    onPressed: () async{
+
+                        _connectionTestSuccessful = await _networkingManager.testServerConnection();
+
+                        setState(() {
+                          _testedConnection = true;
+                        });
                     },
                     child: const Text('Test Connection'),
                     style: ButtonStyle(
